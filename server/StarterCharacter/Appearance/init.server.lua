@@ -176,5 +176,3 @@ function resetter()
 end
 
 task.spawn(reload)
-
-RunService.Heartbeat:Connect(resetter)
