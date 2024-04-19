@@ -1,6 +1,6 @@
 # sm64-roblox-liberty-prime
 
-A fork of a port of Super Mario 64's movement code into Roblox Luau (in `--!strict` mode), hosted as a [rojo](https://rojo.space) project. Based on (the SM64 decompilation project)[https://github.com/n64decomp/sm64] and (MaximumADHD's Port of movement code to ROBLOX)[https://github.com/MaximumADHD/sm64-roblox]. This is just a more "ready-to-use" version.
+A fork of a port of Super Mario 64's movement code into Roblox Luau (in `--!strict` mode), hosted as a [rojo](https://rojo.space) project. Based on [the SM64 decompilation project](https://github.com/n64decomp/sm64) and [MaximumADHD's Port of movement code to ROBLOX](https://github.com/MaximumADHD/sm64-roblox). This is just a more "ready-to-use" version.
 
 Original game is hosted here:<br/>
 https://www.roblox.com/games/10238956318/funny-64-bit-platformer
