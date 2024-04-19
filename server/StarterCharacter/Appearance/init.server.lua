@@ -46,15 +46,15 @@ local function onDescendantAdded(desc: Instance)
 		if desc.CollisionGroup ~= "Player" then
 			local canCollide = desc:GetPropertyChangedSignal("CanCollide")
 			desc.CollisionGroup = "Player"
-			desc.CanQuery = false
-			desc.CanTouch = false
+			desc.CanQuery = true
+			desc.CanTouch = true
 			desc.Massless = true
 
 			canCollide:Connect(function()
-				desc.CanCollide = false
+				desc.CanCollide = true
 			end)
 
-			desc.CanCollide = false
+			desc.CanCollide = true
 		end
 
 		if desc:IsA("MeshPart") then
@@ -85,7 +85,7 @@ local function reload()
 
 	task.spawn(function()
 		for i = 1, 5 do
-			character:PivotTo(CFrame.new(0, 100, 0))
+			--character:PivotTo(CFrame.new(0, 100, 0))
 			task.wait()
 		end
 	end)
