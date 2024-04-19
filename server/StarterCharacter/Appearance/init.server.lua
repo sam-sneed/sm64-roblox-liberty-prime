@@ -84,10 +84,7 @@ local function reload()
 	character:ScaleTo(1)
 
 	task.spawn(function()
-		for i = 1, 5 do
-			--character:PivotTo(CFrame.new(0, 100, 0))
-			task.wait()
-		end
+		player:LoadCharacter()
 	end)
 
 	for retry = 1, 10 do
