@@ -80,12 +80,33 @@ character:SetAttribute("TimeScale", 1)
 character.DescendantAdded:Connect(onDescendantAdded)
 character.DescendantRemoving:Connect(onDescendantRemoving)
 
+--THIS IS WHERE THE SPAWNLOCATION IMPLEMENTATION IS
+local function getTeamSpawnPosition(player)
+    local teamColor = player.TeamColor
+    local spawnLocations = game.Workspace:GetDescendants()
+    local teamSpawn = nil
+    
+    -- Find a spawn location with the same TeamColor as the player's team
+    for _, spawn in pairs(spawnLocations) do
+        if spawn.ClassName == "SpawnLocation" then
+			if spawn.TeamColor == teamColor then
+				teamSpawn = spawn
+				break
+			end
+		end
+    end
+    
+    if teamSpawn then
+        return teamSpawn.Position
+    else
+        warn("No spawn location found for team color: " .. tostring(teamColor))
+		return game.workspace:FindFirstChild("SpawnLocation") --default
+    end
+end
+
+
 local function reload()
 	character:ScaleTo(1)
-
-	task.spawn(function()
-		player:LoadCharacter()
-	end)
 
 	for retry = 1, 10 do
 		local success, result = pcall(function()
@@ -144,4 +165,16 @@ reset.OnServerEvent:Connect(function(player)
 	end
 end)
 
+local RunService = game:GetService("RunService")
+
+function resetter()
+	if character.Humanoid.Health < 1 then
+		reload()
+		wait()
+		player:LoadCharacter()
+	end
+end
+
 task.spawn(reload)
+
+RunService.Heartbeat:Connect(resetter)

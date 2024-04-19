@@ -438,8 +438,34 @@ local function setDebugStat(key: string, value: any)
 	debugStats:SetAttribute(key, value)
 end
 
+
+--THIS IS WHERE THE SPAWNLOCATION IMPLEMENTATION IS
+local function getTeamSpawnPosition(player)
+    local teamColor = player.TeamColor
+    local spawnLocations = game.Workspace:GetDescendants()
+    local teamSpawn = nil
+    
+    -- Find a spawn location with the same TeamColor as the player's team
+    for _, spawn in pairs(spawnLocations) do
+        if spawn.ClassName == "SpawnLocation" then
+			if spawn.TeamColor == teamColor then
+				teamSpawn = spawn
+				break
+			end
+		end
+    end
+    
+    if teamSpawn then
+        return teamSpawn.Position
+    else
+        warn("No spawn location found for team color: " .. tostring(teamColor))
+		return game.workspace:FindFirstChild("SpawnLocation") --default
+    end
+end
+
+
 local function onReset()
-	local roblox = Vector3.yAxis * 100
+	local roblox = getTeamSpawnPosition(player) --THIS IS WHERE THE SPAWNLOCATION IMPLEMENTATION IS CALLED
 	local sm64 = Util.ToSM64(roblox)
 	local char = player.Character
 
@@ -447,7 +473,6 @@ local function onReset()
 		local reset = char:FindFirstChild("Reset")
 
 		local cf = CFrame.new(roblox)
-		char:PivotTo(cf)
 
 		goalCF = cf
 		prevCF = cf
